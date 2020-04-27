@@ -1,13 +1,28 @@
 name: C/C++ CI
 
-on: [push]
+on:
+  push:
+    branches:
+    - 'master'
+    - 'cloudline'
+  pull_request:
+    branches:
+    - '*'
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    container: px4io/px4-dev-base-bionic:2019-10-24
+    # strategy:
+    #   matrix:
+    #     ubuntu_release: [
+    #       bionic,
+    #       focal
+    #       ]
+    container: px4io/px4-dev-simulation-bionic:2019-10-24
+    # container: px4io/px4-dev-base-${{ matrix.ubuntu_release }}:2020-04-01
     steps:
     - uses: actions/checkout@v1
+      with:
+        token: ${{ secrets.ACCESS_TOKEN }}
     - name: make
-      run: make
-
+      run: DONT_RUN=1 make px4_sitl_airship gazebo_cloudship # PX4_CMAKE_BUILD_TYPE=Coverage
