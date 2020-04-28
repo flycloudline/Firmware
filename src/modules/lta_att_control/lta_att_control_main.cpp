@@ -156,8 +156,10 @@ LTAAttitudeControl::vehicle_attitude_poll()
 			// we only extract the heading change from the delta quaternion
 			_man_yaw_sp += Eulerf(Quatf(_v_att.delta_q_reset)).psi();
 		}
+
 		return true;
 	}
+
 	return false;
 }
 
@@ -295,7 +297,8 @@ LTAAttitudeControl::Run()
 
 		_attitude_dt += dt;
 
-		bool attitude_setpoint_generated = _v_control_mode.flag_control_altitude_enabled || _v_control_mode.flag_control_velocity_enabled || _v_control_mode.flag_control_position_enabled;
+		bool attitude_setpoint_generated = _v_control_mode.flag_control_altitude_enabled
+						   || _v_control_mode.flag_control_velocity_enabled || _v_control_mode.flag_control_position_enabled;
 
 		if (attitude_setpoint_generated) {
 			if (attitude_updated) {
@@ -309,6 +312,7 @@ LTAAttitudeControl::Run()
 
 				publish_rates_setpoint();
 			}
+
 		} else {
 			/* attitude controller disabled, poll rates setpoint topic */
 			if (_v_control_mode.flag_control_manual_enabled) {
