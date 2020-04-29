@@ -18,14 +18,17 @@ This repository holds the [PX4](http://px4.io) flight control solution for drone
 
 ## New vehicle type: Airship
 
-A new vehicle type for the PX4 community has been developed. The `cloudship` model consists of a twin-prop stabilator, tail rotor, fins, gondola and payload. It can also be simulated in Gazebo with aerodynamics and buoyancy applied in [https://github.com/flycloudline/sitl_gazebo_airship](https://github.com/flycloudline/sitl_gazebo_airship). To build, run the following commands:
+A new vehicle type for the PX4 community has been developed. The `cloudship` model consists of a twin-prop stabilator, tail rotor, fins, gondola and payload. It can also be simulated in Gazebo with aerodynamics and buoyancy applied in [https://github.com/flycloudline/sitl_gazebo_airship](https://github.com/flycloudline/sitl_gazebo_airship). To build and [setup](https://dev.px4.io/v1.10/en/simulation/gazebo.html#installation) the environment, run the following commands:
 
 ```shell
 git clone -b cloudline https://github.com/flycloudline/Firmware.git --recursive
+cd Firmware && source ./Tools/setup/ubuntu.sh
 make px4_sitl_airship gazebo_cloudship
 ```
 
 ![Cloudship model](./Documentation/sitl_gazebo_airship.jpg)
+
+Use QGroundcontrol and a joystick controller to test. A [virtual joystick](https://docs.qgroundcontrol.com/en/SettingsView/VirtualJoystick.html) can also be used.
 
 
 ## PX4 Users
