@@ -1,0 +1,21 @@
+name: Check code style
+
+on:
+  push:
+    branches:
+    - 'master'
+    - 'cloudline'
+  pull_request:
+    branches:
+    - '*'
+
+jobs:
+  astyle:
+    runs-on: ubuntu-latest
+    container: px4io/px4-dev-base-bionic:2019-10-24
+    steps:
+    - uses: actions/checkout@v1
+      with:
+        token: ${{ secrets.ACCESS_TOKEN }}
+    - name: astyle
+      run: CI=true ./Tools/astyle/check_code_style_all.sh
