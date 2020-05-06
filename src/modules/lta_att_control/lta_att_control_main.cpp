@@ -164,28 +164,6 @@ LTAAttitudeControl::vehicle_attitude_poll()
 }
 
 float
-LTAAttitudeControl::throttle_curve(float throttle_stick_input)
-{
-	float throttle_min = _vehicle_land_detected.landed ? 0.0f : _param_mpc_manthr_min.get();
-
-	// throttle_stick_input is in range [0, 1]
-	switch (_param_mpc_thr_curve.get()) {
-	case 1: // no rescaling to hover throttle
-		return throttle_min + throttle_stick_input * (_param_mpc_thr_max.get() - throttle_min);
-
-	default: // 0 or other: rescale to hover throttle at 0.5 stick
-		if (throttle_stick_input < 0.5f) {
-			return (_param_mpc_thr_hover.get() - throttle_min) / 0.5f * throttle_stick_input +
-			       throttle_min;
-
-		} else {
-			return (_param_mpc_thr_max.get() - _param_mpc_thr_hover.get()) / 0.5f * (throttle_stick_input - 1.0f) +
-			       _param_mpc_thr_max.get();
-		}
-	}
-}
-
-float
 LTAAttitudeControl::get_landing_gear_state()
 {
 	// Only switch the landing gear up if we are not landed and if
@@ -241,13 +219,6 @@ LTAAttitudeControl::publish_actuator_controls()
 	_actuators.control[7] = (float)_landing_gear.landing_gear;
 	// note: _actuators.timestamp_sample is set in LTAAttitudeControl::Run()
 	_actuators.timestamp = hrt_absolute_time();
-
-	/* scale effort by battery status */
-	if (_param_mc_bat_scale_en.get() && _battery_status.scale > 0.0f) {
-		for (int i = 0; i < 4; i++) {
-			_actuators.control[i] *= _battery_status.scale;
-		}
-	}
 
 	if (!_actuators_0_circuit_breaker_enabled) {
 		orb_publish_auto(_actuators_id, &_actuators_0_pub, &_actuators, nullptr, ORB_PRIO_DEFAULT);

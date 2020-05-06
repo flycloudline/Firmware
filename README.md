@@ -23,7 +23,7 @@ A new vehicle type for the PX4 community has been developed. The `cloudship` mod
 ```shell
 git clone -b cloudline https://github.com/flycloudline/Firmware.git --recursive
 cd Firmware && source ./Tools/setup/ubuntu.sh
-make px4_sitl_airship gazebo_cloudship
+make px4_sitl gazebo_cloudship
 ```
 
 ![Cloudship model](./Documentation/sitl_gazebo_airship.jpg)

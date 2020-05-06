@@ -108,8 +108,6 @@ private:
 	void		publish_rates_setpoint();
 	void		publish_rate_controller_status();
 
-	float		throttle_curve(float throttle_stick_input);
-
 	/**
 	 * Generate & publish an attitude setpoint from stick inputs
 	 */
@@ -191,64 +189,6 @@ private:
 
 	bool _reset_yaw_sp{true};
 	float _attitude_dt{0.0f};
-
-	DEFINE_PARAMETERS(
-		(ParamFloat<px4::params::LT_ROLL_P>) _param_mc_roll_p,
-		(ParamFloat<px4::params::LT_ROLLRATE_P>) _param_mc_rollrate_p,
-		(ParamFloat<px4::params::LT_ROLLRATE_I>) _param_mc_rollrate_i,
-		(ParamFloat<px4::params::MC_RR_INT_LIM>) _param_mc_rr_int_lim,
-		(ParamFloat<px4::params::LT_ROLLRATE_D>) _param_mc_rollrate_d,
-		(ParamFloat<px4::params::LT_ROLLRATE_FF>) _param_mc_rollrate_ff,
-		(ParamFloat<px4::params::LT_ROLLRATE_K>) _param_mc_rollrate_k,
-
-		(ParamFloat<px4::params::LT_PITCH_P>) _param_mc_pitch_p,
-		(ParamFloat<px4::params::LT_PITCHRATE_P>) _param_mc_pitchrate_p,
-		(ParamFloat<px4::params::LT_PITCHRATE_I>) _param_mc_pitchrate_i,
-		(ParamFloat<px4::params::MC_PR_INT_LIM>) _param_mc_pr_int_lim,
-		(ParamFloat<px4::params::LT_PITCHRATE_D>) _param_mc_pitchrate_d,
-		(ParamFloat<px4::params::LT_PITCHRATE_FF>) _param_mc_pitchrate_ff,
-		(ParamFloat<px4::params::LT_PITCHRATE_K>) _param_mc_pitchrate_k,
-
-		(ParamFloat<px4::params::LT_YAW_P>) _param_mc_yaw_p,
-		(ParamFloat<px4::params::LT_YAWRATE_P>) _param_mc_yawrate_p,
-		(ParamFloat<px4::params::LT_YAWRATE_I>) _param_mc_yawrate_i,
-		(ParamFloat<px4::params::MC_YR_INT_LIM>) _param_mc_yr_int_lim,
-		(ParamFloat<px4::params::LT_YAWRATE_D>) _param_mc_yawrate_d,
-		(ParamFloat<px4::params::LT_YAWRATE_FF>) _param_mc_yawrate_ff,
-		(ParamFloat<px4::params::LT_YAWRATE_K>) _param_mc_yawrate_k,
-
-		(ParamFloat<px4::params::MC_DTERM_CUTOFF>) _param_mc_dterm_cutoff,			/**< Cutoff frequency for the D-term filter */
-
-		(ParamFloat<px4::params::LT_ROLLRATE_MAX>) _param_mc_rollrate_max,
-		(ParamFloat<px4::params::LT_PITCHRATE_MAX>) _param_mc_pitchrate_max,
-		(ParamFloat<px4::params::LT_YAWRATE_MAX>) _param_mc_yawrate_max,
-		(ParamFloat<px4::params::MPC_MAN_Y_MAX>) _param_mpc_man_y_max,			/**< scaling factor from stick to yaw rate */
-
-		(ParamFloat<px4::params::MC_ACRO_R_MAX>) _param_mc_acro_r_max,
-		(ParamFloat<px4::params::MC_ACRO_P_MAX>) _param_mc_acro_p_max,
-		(ParamFloat<px4::params::MC_ACRO_Y_MAX>) _param_mc_acro_y_max,
-		(ParamFloat<px4::params::MC_ACRO_EXPO>) _param_mc_acro_expo,				/**< expo stick curve shape (roll & pitch) */
-		(ParamFloat<px4::params::MC_ACRO_EXPO_Y>) _param_mc_acro_expo_y,				/**< expo stick curve shape (yaw) */
-		(ParamFloat<px4::params::MC_ACRO_SUPEXPO>) _param_mc_acro_supexpo,			/**< superexpo stick curve shape (roll & pitch) */
-		(ParamFloat<px4::params::MC_ACRO_SUPEXPOY>) _param_mc_acro_supexpoy,			/**< superexpo stick curve shape (yaw) */
-
-		(ParamFloat<px4::params::MC_RATT_TH>) _param_mc_ratt_th,
-
-		(ParamBool<px4::params::MC_BAT_SCALE_EN>) _param_mc_bat_scale_en,
-
-		/* Stabilized mode params */
-		(ParamFloat<px4::params::MPC_MAN_TILT_MAX>) _param_mpc_man_tilt_max,			/**< maximum tilt allowed for manual flight */
-		(ParamFloat<px4::params::MPC_MANTHR_MIN>) _param_mpc_manthr_min,			/**< minimum throttle for stabilized */
-		(ParamFloat<px4::params::MPC_THR_MAX>) _param_mpc_thr_max,				/**< maximum throttle for stabilized */
-		(ParamFloat<px4::params::MPC_THR_HOVER>)
-		_param_mpc_thr_hover,			/**< throttle at which vehicle is at hover equilibrium */
-		(ParamInt<px4::params::MPC_THR_CURVE>) _param_mpc_thr_curve,				/**< throttle curve behavior */
-
-		(ParamInt<px4::params::MC_AIRMODE>) _param_mc_airmode,
-
-		(ParamInt<px4::params::CBRK_RATE_CTRL>) _param_cbrk_rate_ctrl
-
-	)
 
 	bool _is_tailsitter{false};
 
